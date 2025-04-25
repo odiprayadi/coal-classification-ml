@@ -34,7 +34,7 @@ The dataset consists of coal images, each labeled according to its coal type:
 - Includes visual reports and confusion matrix for model evaluation.
 
 ## 🖼️ Example Inference
-![Prediction Example](results/prediction_example.png)
+![Prediction Example]([results/prediction_example.png](https://github.com/odiprayadi/coal-classification-ml/blob/main/results/prediction_result.png))
 
 ## 🔍 Find Similar Images
 Given a custom input image, the model can retrieve top-N similar images from the training set based on cosine similarity of deep features.
