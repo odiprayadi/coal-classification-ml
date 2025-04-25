@@ -1,0 +1,13 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# TensorFlow model files
+*.h5
+
+# Logs and output directories
+logs/
+outputs/
