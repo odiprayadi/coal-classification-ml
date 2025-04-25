@@ -1,21 +1,24 @@
-import numpy as np
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
-from tensorflow.keras.models import load_model
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+import numpy as np
+import matplotlib.pyplot as plt
 
-def predict_image(model, img_path, img_size=(224, 224)):
-    """Predict class for a single image."""
+def predict_image(model, img_path, img_size=(224, 224), class_indices=None):
     img = load_img(img_path, target_size=img_size)
     img_array = img_to_array(img)
+    img_array = preprocess_input(img_array)
     img_array = np.expand_dims(img_array, axis=0)
-    prediction = model.predict(img_array)
-    return np.argmax(prediction), np.max(prediction)
 
-if __name__ == "__main__":
-    # Load model
-    model = load_model('coal_transfer_model.h5')
+    pred = model.predict(img_array)
+    pred_class = np.argmax(pred)
+    confidence = np.max(pred) * 100
 
-    # Make prediction
-    img_path = 'path/to/your/image.jpg'
-    class_index, confidence = predict_image(model, img_path)
-    print(f"Predicted class: {class_index}, Confidence: {confidence * 100:.2f}%")
+    # Label mapping
+    id_to_label = {v: k for k, v in class_indices.items()}
 
+    plt.imshow(load_img(img_path))
+    plt.axis('off')
+    plt.title(f"Prediction: {id_to_label[pred_class]} ({confidence:.2f}%)")
+    plt.show()
+
+    return id_to_label[pred_class], confidence
